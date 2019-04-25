@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html ng-app="simulados">
+
+<head>
+    <meta charset='utf-8'>
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Hello World</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="app/styles/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src='lib/angular-1.7.8/angular.min.js'></script>
+    <script src='lib/angular-1.7.8/angular-animate.min.js'></script>
+    <script src="lib/angular-filter/dist/angular-filter.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/components/table-simulados/table-simuladosCtrl.js"></script>
+
+    <script src="app/components/ui-modal/ui-modalDirective.js"></script>
+
+</head>
+
+<body class="body" ng-controller="ctrlRead">
+    <header class="banner" role="banner">
+        <div class="container">
+            <!-- <img src="assets/simulados.png" alt="">
+            <a class="logo" role="logo">
+                <img src="assets/logo-medgroup.png" alt="Logo MedGrupo">
+            </a> -->
+        </div>
+    </header>
+    <ui-alert title="Ops, aconteceu um problema!">
+        {{error}}
+    </ui-alert>
+
+    <main class="container main" style="margin-top:8rem" role="main">
+        <div class="d-flex" style="min-height:350px;">
+            <aside role="complementary">
+                <ul class="list">
+                    <li class="list__item"><a ng-click="sizefont(1)" href="">A+</a></li>
+                    <li class="list__item"><a ng-click="sizefont(-1)" href="">A-</a></li>
+                </ul>
+                <h5>Simulados de 2008</h5>
+                <ul id="accordionExample" ng-repeat="nSimulados in simulados">
+                    <li id="heading{{nSimulados.id}}" data-toggle="collapse" data-target="#collapse{{nSimulados.id}}"
+                        aria-expanded="true" aria-controls="collapse{{nSimulados.id}}">
+                        <a ng-click="setActualSimulado(nSimulados.id)" href="">Simulado
+                            {{nSimulados.id}}</a>
+                        <ul id="collapse{{nSimulados.id}}" class="collapse ml-3"
+                            aria-labelledby="heading{{nSimulados.id}}" data-parent="#accordionExample"
+                            ng-repeat="nProva in prova">
+                            <li><a href="" ng-click="setActualProva(nProva.prova)">Prova {{nProva.prova}}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+            <article style="margin-top:2.5%">
+                <header>
+                    <h4>Simulado {{actualSimulado}} - {{actualProva}}</h4>
+                    <p>Os resultados do simulado são atualizados diariamente, na medida em que os cartões respostas e as
+                        provas discursivas vão sendo processados.</p>
+                    <p>Através dos filtros, você poderá criar rankings personalizados, por ESPECIALIDADE, TURMA (Curso)
+                        e
+                        UNIDADE (Cidade).</p>
+                </header>
+                <section>
+                    <div class="align-items-center p-2 mt-5 mb-5" style="background-color:#f1f1f1;">
+                        <form name="matriculaForm" class="search" role="search">
+                            <label for="">Entre com sua matricula:</label>
+                            <input type="text" ng-model="items.matricula" name="matricula" ng-required="true"
+                                ng-pattern="/^\d{5}$/">
+                            <button ng-click="setMatricula(items.matricula)" ng-disabled="matriculaForm.$invalid"
+                                class="btn--search">Procurar</button>
+                        </form>
+                        <small ng-show="matriculaForm.$invalid && matriculaForm.$dirty"
+                            class="form-text alert alert-danger mt-2">Por favor, preencha com Nº de uma
+                            matrícula.</small>
+                    </div>
+                    <div>
+                        <h3>Filtrar por:</h3>
+                        <form class="d-flex" action="">
+                            <div>
+                                <label for=""></label>
+                                <select name="especialidade" ng-model="items.especialidades"
+                                    ng-options="item.especialidade for item in items | unique:'especialidade'">
+                                    <option value="">Especialidades - Todas</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for=""></label>
+                                <select name="filial" ng-model="items.filiais"
+                                    ng-options="item.filial for item in items | unique: 'filial'">
+                                    <option value="">Filiais - Todas</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for=""></label>
+                                <select name="turma" ng-model="items.turmas"
+                                    ng-options="item.turma for item in items | unique:'turma'">
+                                    <option value="">Turma - Todas</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                <section>
+                    <table>
+
+                    </table>
+                </section>
+            </article>
+        </div>
+        <div class="mt-5">
+            <ul class="listTable d-flex bd-highlight">
+                <li class="listTable__item m-1 bd-highlight"><a href="#" ng-click="printToCart('printSectionId')">imprimir</a> |
+                </li>
+                <li data-toggle="modal" data-target="#myModal" href="#" class="listTable__item m-1 bd-highlight"><a
+                        href="">enviar para um amigo</a></li>
+                <li class="listTable__item ml-auto p-2 bd-highlight">foram encontrados 3210 registros</li>
+            </ul>
+        </div>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Hello world!</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="d-flex justify-content-between align-items-center p-2" style="background-color:#f1f1f1;"
+            ng-controller="ctrlRead">
+            <div class="pagination">
+                <ul class="d-flex">
+                    <li class="mr-2" ng-class="{disabled: currentPage == 0}">
+                        <a href ng-click="prevPage()">« Anterior</a>
+                    </li>
+                    <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                        <a href ng-click="nextPage()">Próximo »</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <label for="">ir para:</label>
+                <input type="text" />
+            </div>
+            <div>
+                <label for="">mostrar:</label>
+                <input type="text" />
+            </div>
+            <p><span>O</span> baixar planilha completa</p>
+        </div>
+        <table class="table table-striped table-condensed table-hover" id="printSectionId">
+            <thead>
+
+                <tr>
+                    <th class="id" custom-sort order="'id'" sort="sort">Posição&nbsp;</th>
+                    <th class="name" custom-sort order="'name'" sort="sort">Nota&nbsp;</th>
+                    <th class="description" custom-sort order="'description'" sort="sort">Matricula&nbsp;</th>
+                    <th class="field3" custom-sort order="'field3'" sort="sort">Especialidade&nbsp;</th>
+                    <th class="field4" custom-sort order="'field4'" sort="sort">Turma&nbsp;</th>
+                    <th class="field5" custom-sort order="'field5'" sort="sort">Filial&nbsp;</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <td>
+                    <div class="pagination pull-right">
+                        <ul class="d-flex">
+                            <li class="mr-2" ng-class="{disabled: currentPage == 0}">
+                                <a href ng-click="prevPage()">« Anterior</a>
+                            </li>
+                            <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                                <a href ng-click="nextPage()">Próximo »</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tfoot>
+            <tbody>
+                <tr
+                    ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse | filter:(!!items.especialidades || undefined) && items.especialidades | filter:(!!items.turmas || undefined) && items.turmas | filter:(!!items.filiais || undefined) && items.filiais">
+                    <td>{{item.id}}º</td>
+                    <td>{{item.nota}}</td>
+                    <td>{{item.matricula}}</td>
+                    <td>{{item.especialidade}}</td>
+                    <td>{{item.turma}}</td>
+                    <td>{{item.filial}}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo"></footer>
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

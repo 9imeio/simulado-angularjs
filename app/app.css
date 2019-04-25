@@ -1,0 +1,50 @@
+html {
+  font-size: 10px;
+}
+
+body.body {
+  background-image: url(../assets/background-image.png);
+  background-repeat:no-repeat;
+  background-size: 100%;
+}
+
+
+ul.list {
+  display: flex;
+  justify-content: flex-start;
+}
+
+li.list__item {
+  margin: 1%;
+  background: #3f3f3f;
+  padding: 1%;
+  min-width: 30px;
+  text-align: center;
+}
+li.list__item > a {color: white;}
+
+
+li.listTable__item {color: #999999}
+li.listTable__item > a {color: #999999}
+
+aside {
+  min-width: 20%;
+}
+
+aside ul.zoom-page {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+aside ul.zoom-page li {
+  list-style: none;
+  padding: 4px 6px;
+  margin: 5px;
+  background-color: black;
+}
+
+aside ul.zoom-page li a {
+  width: 100%;
+  color: white;
+}
