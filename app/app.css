@@ -6,6 +6,12 @@ body.body {
   background-image: url(../assets/background-image.png);
   background-repeat:no-repeat;
   background-size: 100%;
+  min-height: 30rem;
+}
+
+main.main {
+  margin-top: 8rem;
+  min-height: 800px;
 }
 
 
@@ -24,7 +30,11 @@ li.list__item {
 li.list__item > a {color: white;}
 
 
+
+
 li.listTable__item {color: #999999}
+li.listTable__item::after {width: 50px;height: 50px; background-color: red;}
+
 li.listTable__item > a {color: #999999}
 
 aside {
@@ -47,4 +57,8 @@ aside ul.zoom-page li {
 aside ul.zoom-page li a {
   width: 100%;
   color: white;
+}
+
+@media print {
+  .pagination {display: none;}
 }
