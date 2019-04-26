@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <link rel="shortcut icon" href="favicon.ico">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Hello World</title>
+    <title>Simulados MedGrupo</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="app/app.css">
     <link rel="stylesheet" href="app/styles/reset.css">
@@ -17,6 +17,12 @@
     <script src='lib/angular-1.7.8/angular-touch.min.js'></script>
 
     <script src="lib/angular-filter/dist/angular-filter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-csv/0.3.6/ng-csv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.7.8/angular-sanitize.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+
+
 
     <script src="app/js/directives/sortTable.js"></script>
     <script src="app/js/controllers/simuladosCtrl.js"></script>
@@ -157,7 +163,9 @@
                 <label for="">mostrar:</label>
                 <input type="text" />
             </div>
-            <p><span>O</span> baixar planilha completa</p>
+            <a href="" ng-csv="items" filename="SimuladosCompleto.csv" field-separator="','"><span class="fas fa-download mr-2"></span>baixar
+                planilha completa</a>
+
         </div>
 
         <div id="printSectionId">

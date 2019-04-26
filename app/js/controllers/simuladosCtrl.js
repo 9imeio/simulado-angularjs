@@ -1,4 +1,4 @@
-var fessmodule = angular.module("simulados", ['angular.filter', 'ngAnimate', 'ngTouch']);
+var fessmodule = angular.module("simulados", ['angular.filter', 'ngAnimate', 'ngTouch','ngSanitize', 'ngCsv']);
 
 fessmodule.controller('simuladosCtrl', function ($scope, $filter) {
 
@@ -7,7 +7,7 @@ fessmodule.controller('simuladosCtrl', function ($scope, $filter) {
     $scope.sTab = function (res) {
         console.log(res)
         console.log($scope.tab)
-    
+
         $scope.tab = res;
     };
 
@@ -89,6 +89,12 @@ fessmodule.controller('simuladosCtrl', function ($scope, $filter) {
         popupWinindow.document.close();
     }
 
+    $scope.separator =",";
+    $scope.decimalSeparator =",";
+    $scope.filename ="Provas.csv";
+    $scope.getDataHeader = function(){
+        return ['Col1','Col2','Col3','Col4','Col5','Col6'];
+    }
 
     $scope.sizefont = function (xPlus) {
         if (document.body.style.fontSize == "") {
